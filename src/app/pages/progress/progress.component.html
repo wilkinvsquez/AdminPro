@@ -4,38 +4,30 @@
       <div class="card-body">
         <h4 class="card-title">Striped Progress bar</h4>
         <div class="progress m-t-20">
-          <div
-            class="progress-bar bg-primary progress-bar-striped active"
-            [style.width]="getProgress1"
-            style="height: 5px"
-            role="progressbar"
-          ></div>
+          <div class="progress-bar bg-primary progress-bar-striped active" [style.width]="getProgress1"
+            style="height: 5px" role="progressbar"></div>
         </div>
-        <div class="progress m-t-20">
-          <div
-            class="progress-bar bg-info progress-bar-striped active"
-            [style.width]="getProgress2"
-            style="height: 5px"
-            role="progressbar"
-          ></div>
+        <div class=" progress m-t-20">
+          <div class="progress-bar bg-info progress-bar-striped active" [style.width]="getProgress2" style="height: 5px"
+            role="progressbar"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="row">
+<div class=" row">
   <div class="col-6">
     <div class="card">
       <div class="card-body">
-        <app-increaser [progress]="15"></app-increaser>
+        <app-increaser (changedValue)="progress1 = $event" [progress]="15"></app-increaser>
       </div>
     </div>
   </div>
   <div class="col-6">
     <div class="card">
       <div class="card-body">
-        <app-increaser></app-increaser>
+        <app-increaser (changedValue)="progress2 = $event" [progress]="15" btnClass="btn-info"></app-increaser>
       </div>
     </div>
   </div>
