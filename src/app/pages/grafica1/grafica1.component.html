@@ -1,1 +1,15 @@
-<p>grafica1 works!</p>
+<div class="row">
+  <div class="col-4">
+    <app-donut-graph
+      title="Sales"
+      [labels]="labels"
+      [graphData]="graphData"
+    ></app-donut-graph>
+  </div>
+  <div class="col-4">
+    <app-donut-graph title="Admin"></app-donut-graph>
+  </div>
+  <div class="col-4">
+    <app-donut-graph></app-donut-graph>
+  </div>
+</div>
