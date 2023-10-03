@@ -1,10 +1,15 @@
 <div class="row">
-    <div class="col-6">
-        <div class="card">
-            <div class="card-body h-25">
-                <h4>Sales</h4>
-                <p-chart class="h-25" type="doughnut" [data]="data" [options]="options"></p-chart>
-            </div>
-        </div>
-    </div>
+  <div class="col-4">
+    <app-donut-graph
+      title="Sales"
+      [labels]="labels"
+      [graphData]="graphData"
+    ></app-donut-graph>
+  </div>
+  <div class="col-4">
+    <app-donut-graph title="Admin"></app-donut-graph>
+  </div>
+  <div class="col-4">
+    <app-donut-graph></app-donut-graph>
+  </div>
 </div>

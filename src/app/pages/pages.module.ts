@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
 
 import { FormsModule } from '@angular/forms';
-import { ChartModule } from 'primeng/chart';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -32,7 +31,6 @@ import { PagesComponent } from './pages.component';
     RouterModule,
     FormsModule,
     ComponentsModule,
-    ChartModule,
   ],
 })
-export class PagesModule {}
+export class PagesModule { }
