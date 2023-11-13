@@ -13,7 +13,17 @@ declare const google: any;
 })
 export class LoginComponent implements AfterViewInit {
   @ViewChild('googleBtn') googleBtn: ElementRef;
+
   public formSubmitted: boolean = false;
+
+  public loginForm = this.fb.group({
+    email: [
+      localStorage.getItem('email') || '',
+      [Validators.required, Validators.email],
+    ],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    remember: [true],
+  });
 
   constructor(
     private _router: Router,
@@ -23,6 +33,22 @@ export class LoginComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.googleInit();
+  }
+
+  login() {
+    this.formSubmitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this._userService.signIn(this.loginForm.value).subscribe({
+      next: (res: any) => {
+        if (this.loginForm.get('remember')?.value) {
+          localStorage.setItem('email', this.loginForm.get('email')?.value!);
+        }
+        this._router.navigateByUrl('/');
+      },
+      error: (err) => console.log(err),
+    });
   }
 
   googleInit() {
@@ -45,31 +71,6 @@ export class LoginComponent implements AfterViewInit {
       error: (err) => {
         console.log(err);
       },
-    });
-  }
-
-  public loginForm = this.fb.group({
-    email: [
-      localStorage.getItem('email') || '',
-      [Validators.required, Validators.email],
-    ],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    remember: [true],
-  });
-
-  login() {
-    this.formSubmitted = true;
-    if (this.loginForm.invalid) {
-      return;
-    }
-    this._userService.signIn(this.loginForm.value).subscribe({
-      next: (res: any) => {
-        if (this.loginForm.get('remember')?.value) {
-          localStorage.setItem('email', this.loginForm.get('email')?.value!);
-        }
-        this._router.navigateByUrl('/');
-      },
-      error: (err) => console.log(err),
     });
   }
 }

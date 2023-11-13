@@ -4,6 +4,7 @@ import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from 'src/environments/environment.development';
 import { tap, map, Observable, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 
 declare const google: any;
 
@@ -11,24 +12,17 @@ declare const google: any;
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private _router: Router) {}
+  public user: User;
 
-  validateToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
-    return this.http
-      .get(`${environment.base_url}/login/renew`, {
-        headers: {
-          'x-token': token,
-        },
-      })
-      .pipe(
-        tap((res: any) => {
-          localStorage.setItem('token', res.token);
-        }),
-        map((res: boolean) => true),
-        catchError((err) => of(false))
-      );
+  get token(): string {
+    return localStorage.getItem('token') || '';
   }
+
+  get uId(): string {
+    return this.user.uid || '';
+  }
+
+  constructor(private http: HttpClient, private _router: Router) {}
 
   createUser(formData: RegisterForm) {
     return this.http.post(`${environment.base_url}/users`, formData).pipe(
@@ -36,6 +30,18 @@ export class UserService {
         localStorage.setItem('token', res.token);
       })
     );
+  }
+
+  updateProfile(data: { email: string; name: string; role: string }) {
+    data = {
+      ...data,
+      role: this.user.role!,
+    };
+    return this.http.put(`${environment.base_url}/users/${this.uId}`, data, {
+      headers: {
+        'x-token': this.token,
+      },
+    });
   }
 
   signIn(formData: any) {
@@ -61,6 +67,25 @@ export class UserService {
 
   logout() {
     localStorage.removeItem('token');
-    google.accounts.id.revoke('w04wiljva97@gmail.com', () => {});
+    google.accounts.id.revoke('wilkinvsquez@gmail.com', () => {});
+  }
+
+  validateToken(): Observable<boolean> {
+    return this.http
+      .get(`${environment.base_url}/login/renew`, {
+        headers: {
+          'x-token': this.token,
+        },
+      })
+      .pipe(
+        map((res: any) => {
+          const { email, google, name, role, img = '', uid } = res.user;
+          this.user = new User(name, email, '', img, google, role, uid);
+          localStorage.setItem('token', res.token);
+          return true;
+        }),
+        // map((res: boolean) => true),
+        catchError((err) => of(false))
+      );
   }
 }

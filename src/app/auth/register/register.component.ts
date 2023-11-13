@@ -27,6 +27,7 @@ export class RegisterComponent {
       validator: this.passwordsMatch('password', 'cPassword'),
     }
   );
+
   constructor(
     private fb: FormBuilder,
     private _userService: UserService,
@@ -39,15 +40,15 @@ export class RegisterComponent {
       return;
     }
 
-    this._userService.createUser(this.registerForm.value).subscribe(
-      (res) => {
+    this._userService.createUser(this.registerForm.value).subscribe({
+      next: (res) => {
         Swal.fire('Great', 'You have been registered', 'success');
         this._router.navigateByUrl('/');
       },
-      (err) => {
+      error: (err) => {
         Swal.fire('There was a problem', err.error.msg, 'error');
-      }
-    );
+      },
+    });
   }
 
   notValidField(field: string): boolean {
