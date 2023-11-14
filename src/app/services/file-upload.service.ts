@@ -10,7 +10,7 @@ export class FileUploadService {
 
   async updatePicture(
     file: File,
-    type: 'users' | 'doctors' | 'hospitals',
+    type: 'users' | 'doctors' | 'hospitals' | string,
     id: string
   ) {
     try {
