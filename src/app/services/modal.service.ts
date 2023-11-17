@@ -26,7 +26,6 @@ export class ModalService {
     this._hideModal = false;
     this.type = type;
     this.id = id;
-    // this.img = img;
 
     if (img?.includes('https')) {
       this.img = img;

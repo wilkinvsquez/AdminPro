@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { User } from '../models/user.model';
+import { Hospital } from '../models/hospital.model';
+import { ImagePipe } from '../pipes/image.pipe';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +46,10 @@ export class SearchesService {
         switch (type) {
           case 'users':
             return this.transformUsers(res.results);
+          case 'hospitals':
+            return res.results;
+          case 'doctors':
+            return res.results;
           default:
             return [];
         }

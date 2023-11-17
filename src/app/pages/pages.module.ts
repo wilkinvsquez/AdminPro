@@ -17,6 +17,10 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './maintenance/users/users.component';
 import { ModalComponent } from '../components/modal/modal.component';
+import { HospitalsComponent } from './maintenance/hospitals/hospitals.component';
+import { DoctorsComponent } from './maintenance/doctors/doctors.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { DoctorComponent } from './maintenance/doctors/doctor.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,9 @@ import { ModalComponent } from '../components/modal/modal.component';
     RxjsComponent,
     ProfileComponent,
     UsersComponent,
+    HospitalsComponent,
+    DoctorsComponent,
+    DoctorComponent,
   ],
   exports: [
     DashboardComponent,
@@ -46,6 +53,7 @@ import { ModalComponent } from '../components/modal/modal.component';
     FormsModule,
     ComponentsModule,
     ReactiveFormsModule,
+    PipesModule,
   ],
 })
 export class PagesModule {}

@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       return;
     }
     this._searchService.search('users', term).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.users = res;
       },
       error: (err) => {
