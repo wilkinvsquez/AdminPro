@@ -32,12 +32,21 @@ export class UserService {
     };
   }
 
+  get role(): 'USER_ROLE' | 'ADMIN_ROLE' {
+    return this.user.role!;
+  }
+
   createUser(formData: RegisterForm) {
     return this.http.post(`${environment.base_url}/users`, formData).pipe(
       tap((res: any) => {
-        localStorage.setItem('token', res.token);
+        this.saveLocalStorage(res.token, res.menu);
       })
     );
+  }
+
+  saveLocalStorage(token: string, menu: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
   }
 
   updateProfile(data: { email: string; name: string; role: string }) {
@@ -51,7 +60,7 @@ export class UserService {
   signIn(formData: any) {
     return this.http.post(`${environment.base_url}/login`, formData).pipe(
       tap((res: any) => {
-        localStorage.setItem('token', res.token);
+        this.saveLocalStorage(res.token, res.menu);
       })
     );
   }
@@ -64,7 +73,7 @@ export class UserService {
       })
       .pipe(
         tap((res: any) => {
-          localStorage.setItem('token', res.token);
+          this.saveLocalStorage(res.token, res.menu);
         })
       );
   }
@@ -81,7 +90,8 @@ export class UserService {
         map((res: any) => {
           const { email, google, name, role, img = '', uid } = res.user;
           this.user = new User(name, email, '', img, google, role, uid);
-          localStorage.setItem('token', res.token);
+          this.saveLocalStorage(res.token, res.menu);
+
           return true;
         }),
         // map((res: boolean) => true),
