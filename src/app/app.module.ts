@@ -8,16 +8,8 @@ import { AppComponent } from './app.component';
 import { NofoundpageComponent } from './nofoundpage/nofoundpage.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NofoundpageComponent,
-  ],
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    PagesModule,
-    AuthModule
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, NofoundpageComponent],
+  imports: [AppRoutingModule, BrowserModule, PagesModule, AuthModule],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

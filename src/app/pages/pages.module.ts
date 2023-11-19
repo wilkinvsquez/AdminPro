@@ -15,6 +15,13 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './maintenance/users/users.component';
+import { ModalComponent } from '../components/modal/modal.component';
+import { HospitalsComponent } from './maintenance/hospitals/hospitals.component';
+import { DoctorsComponent } from './maintenance/doctors/doctors.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { DoctorComponent } from './maintenance/doctors/doctor.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +33,11 @@ import { ProfileComponent } from './profile/profile.component';
     PromisesComponent,
     RxjsComponent,
     ProfileComponent,
+    UsersComponent,
+    HospitalsComponent,
+    DoctorsComponent,
+    DoctorComponent,
+    SearchComponent,
   ],
   exports: [
     DashboardComponent,
@@ -43,6 +55,7 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     ComponentsModule,
     ReactiveFormsModule,
+    PipesModule,
   ],
 })
 export class PagesModule {}

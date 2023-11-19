@@ -2,49 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProgressComponent } from './progress/progress.component';
-import { Grafica1Component } from './grafica1/grafica1.component';
-import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromisesComponent } from './promises/promises.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+
 import { authGuard } from '../guards/auth.guard';
-import { ProfileComponent } from './profile/profile.component';
+import { ChildRoutesModule } from './child-routes.module';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component: PagesComponent,
     canActivate: [authGuard],
-    children: [
-      { path: '', component: DashboardComponent, data: { title: 'Dashboard' } },
-      {
-        path: 'progress',
-        component: ProgressComponent,
-        data: { title: 'Progress' },
-      },
-      {
-        path: 'grafica1',
-        component: Grafica1Component,
-        data: { title: 'Graph' },
-      },
-      {
-        path: 'account-settings',
-        component: AccountSettingsComponent,
-        data: { title: 'Settings' },
-      },
-      {
-        path: 'promises',
-        component: PromisesComponent,
-        data: { title: 'Promises' },
-      },
-      { path: 'rxjs', component: RxjsComponent, data: { title: 'Rxjs' } },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        data: { title: 'User Profile' },
-      },
-    ],
+    loadChildren: () =>
+      import('./child-routes.module').then((m) => ChildRoutesModule),
   },
 ];
 
