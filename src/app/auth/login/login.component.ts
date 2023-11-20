@@ -45,9 +45,13 @@ export class LoginComponent implements AfterViewInit {
         if (this.loginForm.get('remember')?.value) {
           localStorage.setItem('email', this.loginForm.get('email')?.value!);
         }
+        Swal.fire('Success', ``, 'success');
         this._router.navigateByUrl('/');
       },
-      error: (err) => console.log(err),
+      error: (err) => {
+        console.log(err);
+        Swal.fire('Error', `Unexpected error... ${err}`, 'error');
+      },
     });
   }
 
